@@ -96,19 +96,19 @@ void TQueue<ValType>::Push(ValType elem)
 template <class ValType>
 void TQueue<ValType>::NewAllocation() // добавление еще памяти, если закончилась данная MAX_SIZE
 {
+	int len = size;//запоминаем размер для копирования старой очереди в новую
+	size += 1000; // добавляем каждый раз по 1000
+	if (size > MORE_MAX_SIZE_QUEUE) throw("Not enough memory");
 	int i;
-		ValType *tmp;
-		tmp = new ValType[size + 1];
-		int len = size;//запоминаем размер для копирования старой очереди в новую.
-		for ( i = 0; i < size + 1; i++)
-			tmp[i] = pMem[i];
-		delete[] pMem;
-		size += 1000; // добавляем каждый раз по 1000
-		if (size > MORE_MAX_SIZE_QUEUE) throw("Not enough memory");
-		pMem = new ValType[size];
-		for (i = 0; i < len + 1; i++)
-			pMem[i] = tmp[i];
-		delete[] tmp;
+	ValType *tmp;
+	tmp = new ValType[len + 1];
+	 for ( i = 0; i < len + 1; i++)
+		tmp[i] = pMem[i];
+	delete[] pMem;
+	pMem = new ValType[size];
+	 for (i = 0; i < len + 1; i++)
+		pMem[i] = tmp[i];
+	delete[] tmp;
 }
 
 #endif

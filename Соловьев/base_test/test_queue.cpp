@@ -1,15 +1,15 @@
-﻿#include"queue.h"
+#include"queue.h"
 #include<gtest.h>
 
-TEST(TQueue, can_create_stack_with_positive_length)
+TEST(TQueue, can_create_queue_with_positive_length)
 {
 	ASSERT_NO_THROW(TQueue<int> q(5));
 }
-TEST(TQueue, can_not_create_stack_with_negative_length)
+TEST(TQueue, can_not_create_queue_with_negative_length)
 {
 	ASSERT_ANY_THROW(TQueue<int> q(-5));
 }
-TEST(TQueue, can_not_create_stack_with_max_length)
+TEST(TQueue, can_not_create_queue_with_max_length)
 {
 	ASSERT_ANY_THROW(TQueue<int> q(MAX_SIZE_QUEUE+1));
 }
@@ -27,7 +27,7 @@ TEST(TQueue, get_size)
 }
 TEST(TQueue, can_get_push_and_get_elem)
 {
-	TQueue<int> q(5);
+	TQueue<int> q(10);
 	
 	q.Push(5);
 
