@@ -1,4 +1,4 @@
-#include"queue.h"
+﻿#include"queue.h"
 #include<gtest.h>
 
 TEST(TQueue, can_create_stack_with_positive_length)
@@ -27,7 +27,7 @@ TEST(TQueue, get_size)
 }
 TEST(TQueue, can_get_push_and_get_elem)
 {
-	TQueue<int> q(10);
+	TQueue<int> q(5);
 	
 	q.Push(5);
 

@@ -1,18 +1,18 @@
-#ifndef __QUEUE_H__
+п»ї#ifndef __QUEUE_H__
 #define __QUEUE_H__
 
 const int MAX_SIZE_QUEUE = 10000; 
-const int MORE_MAX_SIZE_QUEUE = 100000;// дополнительный размер для перевыделения памяти
+const int MORE_MAX_SIZE_QUEUE = 100000;// РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РґР»СЏ РїРµСЂРµРІС‹РґРµР»РµРЅРёСЏ РїР°РјСЏС‚Рё
 
 
 template <class ValType>
 class TQueue
 {
-	int  size; // текущий размер памяти
+	int  size; // С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ РїР°РјСЏС‚Рё
 	ValType *pMem;
-	int start;// индекс на первый элемент очереди
-	int end; // индекс на последний элемент очереди
-	int count; //  количетво элементов
+	int start;// РёРЅРґРµРєСЃ РЅР° РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РѕС‡РµСЂРµРґРё
+	int end; // РёРЅРґРµРєСЃ РЅР° РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ РѕС‡РµСЂРµРґРё
+	int count; //  РєРѕР»РёС‡РµС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ
 public:
 	TQueue(int size);
 	~TQueue();
@@ -39,9 +39,9 @@ TQueue<ValType>::TQueue(int len)
 	size = len;
 	if (size > MAX_SIZE_QUEUE) throw("Too much memory required for the queue");
 	count = 0;
-		pMem = new ValType[size + 1]; // для кольцевания +1
-		start = 0; //указывает на начало
-		end = 0;//указывает на конец
+		pMem = new ValType[size + 1]; // РґР»СЏ РєРѕР»СЊС†РµРІР°РЅРёСЏ +1
+		start = 0; //СѓРєР°Р·С‹РІР°РµС‚ РЅР° РЅР°С‡Р°Р»Рѕ
+		end = 0;//СѓРєР°Р·С‹РІР°РµС‚ РЅР° РєРѕРЅРµС†
 }
 
 template <class ValType>
@@ -68,7 +68,7 @@ ValType TQueue<ValType>::Pop()
 	int  tmp=start;
 	start++;
 	if (start > size)
-		start = start - size + 1;//возращаем start в начало очереди
+		start = start - size + 1;//РІРѕР·СЂР°С‰Р°РµРј start РІ РЅР°С‡Р°Р»Рѕ РѕС‡РµСЂРµРґРё
 	return pMem[tmp];
 }
 
@@ -81,7 +81,7 @@ ValType TQueue<ValType>::Top()
 template <class ValType>
 void TQueue<ValType>::Push(ValType elem)
 {
-	// если полон, делаем перевыделение памяти
+	// РµСЃР»Рё РїРѕР»РѕРЅ, РґРµР»Р°РµРј РїРµСЂРµРІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё
 	if (IsFull())
 	{
 		NewAllocation();
@@ -90,20 +90,20 @@ void TQueue<ValType>::Push(ValType elem)
 	pMem[end++] = elem;
 
 	if (end > size)
-		end = end - size + 1;//возвращаем end в начало очереди
+		end = end - size + 1;//РІРѕР·РІСЂР°С‰Р°РµРј end РІ РЅР°С‡Р°Р»Рѕ РѕС‡РµСЂРµРґРё
 
 }
 template <class ValType>
-void TQueue<ValType>::NewAllocation() // добавление еще памяти, если закончилась данная MAX_SIZE
+void TQueue<ValType>::NewAllocation() // РґРѕР±Р°РІР»РµРЅРёРµ РµС‰Рµ РїР°РјСЏС‚Рё, РµСЃР»Рё Р·Р°РєРѕРЅС‡РёР»Р°СЃСЊ РґР°РЅРЅР°СЏ MAX_SIZE
 {
 	int i;
 		ValType *tmp;
 		tmp = new ValType[size + 1];
-		int len = size;//запоминаем размер для копирования старой очереди в новую.
+		int len = size;//Р·Р°РїРѕРјРёРЅР°РµРј СЂР°Р·РјРµСЂ РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёСЏ СЃС‚Р°СЂРѕР№ РѕС‡РµСЂРµРґРё РІ РЅРѕРІСѓСЋ.
 		for ( i = 0; i < size + 1; i++)
 			tmp[i] = pMem[i];
 		delete[] pMem;
-		size += 1000; // добавляем каждый раз по 1000
+		size += 1000; // РґРѕР±Р°РІР»СЏРµРј РєР°Р¶РґС‹Р№ СЂР°Р· РїРѕ 1000
 		if (size > MORE_MAX_SIZE_QUEUE) throw("Not enough memory");
 		pMem = new ValType[size];
 		for (i = 0; i < len + 1; i++)
